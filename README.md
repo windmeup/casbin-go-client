@@ -11,7 +11,7 @@ Go client for Casbin Server
 
 ## Installation
 
-    go get github.com/casbin/casbin-go-client
+    go get github.com/windmeup/casbin-go-client
 
 ## License
 
