@@ -19,7 +19,7 @@ package client
 import (
 	"context"
 
-	pb "github.com/casbin/casbin-server/proto"
+	pb "github.com/windmeup/casbin-server/proto"
 	"google.golang.org/grpc"
 )
 
@@ -29,7 +29,7 @@ type Client struct {
 }
 
 // NewClient creates and returns a new client for casbin-server.
-func NewClient(ctx context.Context, address string, opts ...grpc.DialOption) (*Client, error) {
+func NewClient(_ context.Context, address string, opts ...grpc.DialOption) (*Client, error) {
 	// Set up a connection to the server.
 	conn, err := grpc.Dial(address, opts...)
 	if err != nil {

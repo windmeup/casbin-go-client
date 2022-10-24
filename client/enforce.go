@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"reflect"
 
-	pb "github.com/casbin/casbin-server/proto"
-	"github.com/casbin/casbin-server/server"
+	pb "github.com/windmeup/casbin-server/proto"
+	"github.com/windmeup/casbin-server/server"
 )
 
 // Config contains data needed to create an enforcer.
@@ -41,7 +41,7 @@ type Enforcer struct {
 // File:
 // e := casbin.NewEnforcer("path/to/basic_model.conf", "path/to/basic_policy.csv")
 // MySQL DB:
-// a := mysqladapter.NewDBAdapter("mysql", "mysql_username:mysql_password@tcp(127.0.0.1:3306)/")
+// a := mysqlAdapter.NewDBAdapter("mysql", "mysql_username:mysql_password@tcp(127.0.0.1:3306)/")
 // e := casbin.NewEnforcer("path/to/basic_model.conf", a)
 func (c *Client) NewEnforcer(ctx context.Context, config Config) (*Enforcer, error) {
 	var adapterHandler int32 = -1
@@ -72,7 +72,7 @@ func (c *Client) NewEnforcer(ctx context.Context, config Config) (*Enforcer, err
 	return enforcer, nil
 }
 
-// Enforce decides whether a "subject" can access a "object" with the operation "action", input parameters are usually: (sub, obj, act).
+// Enforce decides whether a "subject" can access an "object" with the operation "action", input parameters are usually: (sub, obj, act).
 func (e *Enforcer) Enforce(ctx context.Context, params ...interface{}) (bool, error) {
 	var data []string
 	for _, item := range params {

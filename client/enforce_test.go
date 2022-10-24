@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"testing"
 	"time"
@@ -19,7 +20,7 @@ var e *Enforcer
 func testNewEnforcer(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	cc, err := NewClient(ctx, address, grpc.WithInsecure())
+	cc, err := NewClient(ctx, address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		t.Fatalf("connot create client: %v", err)
 	}

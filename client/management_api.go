@@ -17,12 +17,12 @@ package client
 import (
 	"context"
 
-	pb "github.com/casbin/casbin-server/proto"
+	pb "github.com/windmeup/casbin-server/proto"
 )
 
 // AddPolicy adds an authorization rule to the current policy.
-// If the rule already exists, the function returns false and the rule will not be added.
-// Otherwise the function returns true by adding the new rule.
+// If the rule already exists, the function returns false and the rule will not be added,
+// otherwise the function returns true by adding the new rule.
 func (e *Enforcer) AddPolicy(ctx context.Context, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.AddPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
@@ -36,12 +36,12 @@ func (e *Enforcer) AddPolicy(ctx context.Context, params ...interface{}) (bool, 
 }
 
 // AddNamedPolicy adds an authorization rule to the current named policy.
-// If the rule already exists, the function returns false and the rule will not be added.
-// Otherwise the function returns true by adding the new rule.
-func (e *Enforcer) AddNamedPolicy(ctx context.Context, ptype string, params ...interface{}) (bool, error) {
+// If the rule already exists, the function returns false and the rule will not be added,
+// otherwise the function returns true by adding the new rule.
+func (e *Enforcer) AddNamedPolicy(ctx context.Context, pType string, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.AddNamedPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		Params:          paramsToStrSlice(params),
 	})
 	if err != nil {
@@ -64,10 +64,10 @@ func (e *Enforcer) RemovePolicy(ctx context.Context, params ...interface{}) (boo
 }
 
 // RemoveNamedPolicy removes an authorization rule from the current named policy.
-func (e *Enforcer) RemoveNamedPolicy(ctx context.Context, ptype string, params ...interface{}) (bool, error) {
+func (e *Enforcer) RemoveNamedPolicy(ctx context.Context, pType string, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.RemoveNamedPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		Params:          paramsToStrSlice(params),
 	})
 	if err != nil {
@@ -91,10 +91,10 @@ func (e *Enforcer) RemoveFilteredPolicy(ctx context.Context, fieldIndex int32, f
 }
 
 // RemoveFilteredNamedPolicy removes an authorization rule from the current named policy, field filters can be specified.
-func (e *Enforcer) RemoveFilteredNamedPolicy(ctx context.Context, ptype string, fieldIndex int32, fieldValues ...string) (bool, error) {
+func (e *Enforcer) RemoveFilteredNamedPolicy(ctx context.Context, pType string, fieldIndex int32, fieldValues ...string) (bool, error) {
 	res, err := e.client.remoteClient.RemoveFilteredNamedPolicy(ctx, &pb.FilteredPolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		FieldIndex:      fieldIndex,
 		FieldValues:     fieldValues,
 	})
@@ -114,10 +114,10 @@ func (e *Enforcer) GetPolicy(ctx context.Context) ([][]string, error) {
 }
 
 // GetNamedPolicy gets all the authorization rules in the named policy.
-func (e *Enforcer) GetNamedPolicy(ctx context.Context, ptype string) ([][]string, error) {
+func (e *Enforcer) GetNamedPolicy(ctx context.Context, pType string) ([][]string, error) {
 	res, err := e.client.remoteClient.GetNamedPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 	})
 	if err != nil {
 		return nil, err
@@ -140,10 +140,10 @@ func (e *Enforcer) GetFilteredPolicy(ctx context.Context, fieldIndex int32, fiel
 }
 
 // GetFilteredNamedPolicy gets all the authorization rules in the named policy, field filters can be specified.
-func (e *Enforcer) GetFilteredNamedPolicy(ctx context.Context, ptype string, fieldIndex int32, fieldValues ...string) ([][]string, error) {
+func (e *Enforcer) GetFilteredNamedPolicy(ctx context.Context, pType string, fieldIndex int32, fieldValues ...string) ([][]string, error) {
 	res, err := e.client.remoteClient.GetFilteredNamedPolicy(ctx, &pb.FilteredPolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		FieldIndex:      fieldIndex,
 		FieldValues:     fieldValues,
 	})
@@ -154,8 +154,8 @@ func (e *Enforcer) GetFilteredNamedPolicy(ctx context.Context, ptype string, fie
 }
 
 // AddGroupingPolicy adds a role inheritance rule to the current policy.
-// If the rule already exists, the function returns false and the rule will not be added.
-// Otherwise the function returns true by adding the new rule.
+// If the rule already exists, the function returns false and the rule will not be added,
+// otherwise the function returns true by adding the new rule.
 func (e *Enforcer) AddGroupingPolicy(ctx context.Context, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.AddGroupingPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
@@ -169,12 +169,12 @@ func (e *Enforcer) AddGroupingPolicy(ctx context.Context, params ...interface{})
 }
 
 // AddNamedGroupingPolicy adds a named role inheritance rule to the current policy.
-// If the rule already exists, the function returns false and the rule will not be added.
-// Otherwise the function returns true by adding the new rule.
-func (e *Enforcer) AddNamedGroupingPolicy(ctx context.Context, ptype string, params ...interface{}) (bool, error) {
+// If the rule already exists, the function returns false and the rule will not be added,
+// otherwise the function returns true by adding the new rule.
+func (e *Enforcer) AddNamedGroupingPolicy(ctx context.Context, pType string, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.AddNamedGroupingPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		Params:          paramsToStrSlice(params),
 	})
 	if err != nil {
@@ -197,10 +197,10 @@ func (e *Enforcer) RemoveGroupingPolicy(ctx context.Context, params ...interface
 }
 
 // RemoveNamedGroupingPolicy removes a role inheritance rule from the current named policy.
-func (e *Enforcer) RemoveNamedGroupingPolicy(ctx context.Context, ptype string, params ...interface{}) (bool, error) {
+func (e *Enforcer) RemoveNamedGroupingPolicy(ctx context.Context, pType string, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.RemoveNamedGroupingPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		Params:          paramsToStrSlice(params),
 	})
 	if err != nil {
@@ -225,10 +225,10 @@ func (e *Enforcer) RemoveFilteredGroupingPolicy(ctx context.Context, fieldIndex 
 
 // RemoveFilteredNamedGroupingPolicy removes a role inheritance rule from the current named policy,
 // field filters can be specified.
-func (e *Enforcer) RemoveFilteredNamedGroupingPolicy(ctx context.Context, ptype string, fieldIndex int32, fieldValues ...string) (bool, error) {
+func (e *Enforcer) RemoveFilteredNamedGroupingPolicy(ctx context.Context, pType string, fieldIndex int32, fieldValues ...string) (bool, error) {
 	res, err := e.client.remoteClient.RemoveFilteredNamedGroupingPolicy(ctx, &pb.FilteredPolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		FieldIndex:      fieldIndex,
 		FieldValues:     fieldValues,
 	})
@@ -248,10 +248,10 @@ func (e *Enforcer) GetGroupingPolicy(ctx context.Context) ([][]string, error) {
 }
 
 // GetNamedGroupingPolicy gets all the role inheritance rules in the policy.
-func (e *Enforcer) GetNamedGroupingPolicy(ctx context.Context, ptype string) ([][]string, error) {
+func (e *Enforcer) GetNamedGroupingPolicy(ctx context.Context, pType string) ([][]string, error) {
 	res, err := e.client.remoteClient.GetNamedGroupingPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 	})
 	if err != nil {
 		return nil, err
@@ -274,10 +274,10 @@ func (e *Enforcer) GetFilteredGroupingPolicy(ctx context.Context, fieldIndex int
 }
 
 // GetFilteredNamedGroupingPolicy gets all the role inheritance rules in the policy, field filters can be specified.
-func (e *Enforcer) GetFilteredNamedGroupingPolicy(ctx context.Context, ptype string, fieldIndex int32, fieldValues ...string) ([][]string, error) {
+func (e *Enforcer) GetFilteredNamedGroupingPolicy(ctx context.Context, pType string, fieldIndex int32, fieldValues ...string) ([][]string, error) {
 	res, err := e.client.remoteClient.GetFilteredNamedGroupingPolicy(ctx, &pb.FilteredPolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		FieldIndex:      fieldIndex,
 		FieldValues:     fieldValues,
 	})
@@ -297,10 +297,10 @@ func (e *Enforcer) GetAllSubjects(ctx context.Context) ([]string, error) {
 }
 
 // GetAllNamedSubjects gets the list of subjects that show up in the current named policy.
-func (e *Enforcer) GetAllNamedSubjects(ctx context.Context, ptype string) ([]string, error) {
+func (e *Enforcer) GetAllNamedSubjects(ctx context.Context, pType string) ([]string, error) {
 	res, err := e.client.remoteClient.GetAllNamedSubjects(ctx, &pb.SimpleGetRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 	})
 	if err != nil {
 		return nil, err
@@ -318,10 +318,10 @@ func (e *Enforcer) GetAllObjects(ctx context.Context) ([]string, error) {
 }
 
 // GetAllNamedObjects gets the list of objects that show up in the current named policy.
-func (e *Enforcer) GetAllNamedObjects(ctx context.Context, ptype string) ([]string, error) {
+func (e *Enforcer) GetAllNamedObjects(ctx context.Context, pType string) ([]string, error) {
 	res, err := e.client.remoteClient.GetAllNamedObjects(ctx, &pb.SimpleGetRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 	})
 	if err != nil {
 		return nil, err
@@ -339,10 +339,10 @@ func (e *Enforcer) GetAllActions(ctx context.Context) ([]string, error) {
 }
 
 // GetAllNamedActions gets the list of actions that show up in the current named policy.
-func (e *Enforcer) GetAllNamedActions(ctx context.Context, ptype string) ([]string, error) {
+func (e *Enforcer) GetAllNamedActions(ctx context.Context, pType string) ([]string, error) {
 	res, err := e.client.remoteClient.GetAllNamedActions(ctx, &pb.SimpleGetRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 	})
 	if err != nil {
 		return nil, err
@@ -360,10 +360,10 @@ func (e *Enforcer) GetAllRoles(ctx context.Context) ([]string, error) {
 }
 
 // GetAllNamedRoles gets the list of roles that show up in the current named policy.
-func (e *Enforcer) GetAllNamedRoles(ctx context.Context, ptype string) ([]string, error) {
+func (e *Enforcer) GetAllNamedRoles(ctx context.Context, pType string) ([]string, error) {
 	res, err := e.client.remoteClient.GetAllNamedRoles(ctx, &pb.SimpleGetRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 	})
 	if err != nil {
 		return nil, err
@@ -385,10 +385,10 @@ func (e *Enforcer) HasPolicy(ctx context.Context, params ...interface{}) (bool, 
 }
 
 // HasNamedPolicy determines whether a named authorization rule exists.
-func (e *Enforcer) HasNamedPolicy(ctx context.Context, ptype string, params ...interface{}) (bool, error) {
+func (e *Enforcer) HasNamedPolicy(ctx context.Context, pType string, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.HasNamedPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		Params:          paramsToStrSlice(params),
 	})
 	if err != nil {
@@ -411,10 +411,10 @@ func (e *Enforcer) HasGroupingPolicy(ctx context.Context, params ...interface{})
 }
 
 // HasNamedGroupingPolicy determines whether a named role inheritance rule exists.
-func (e *Enforcer) HasNamedGroupingPolicy(ctx context.Context, ptype string, params ...interface{}) (bool, error) {
+func (e *Enforcer) HasNamedGroupingPolicy(ctx context.Context, pType string, params ...interface{}) (bool, error) {
 	res, err := e.client.remoteClient.HasNamedGroupingPolicy(ctx, &pb.PolicyRequest{
 		EnforcerHandler: e.handler,
-		PType:           ptype,
+		PType:           pType,
 		Params:          paramsToStrSlice(params),
 	})
 	if err != nil {
@@ -423,7 +423,7 @@ func (e *Enforcer) HasNamedGroupingPolicy(ctx context.Context, ptype string, par
 	return res.Res, nil
 }
 
-// paramsToStrSlice transforms params, which can either be one string slice or several seperate
+// paramsToStrSlice transforms params, which can either be one string slice or several separated
 // strings, into a slice of strings.
 func paramsToStrSlice(params []interface{}) []string {
 	if slice, ok := params[0].([]string); len(params) == 1 && ok {

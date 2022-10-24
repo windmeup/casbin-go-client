@@ -1,6 +1,6 @@
 package client
 
-import pb "github.com/casbin/casbin-server/proto"
+import pb "github.com/windmeup/casbin-server/proto"
 
 func NewEnforcer(handler int32, remoteClient pb.CasbinClient) *Enforcer {
 	return &Enforcer{

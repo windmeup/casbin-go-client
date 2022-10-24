@@ -17,7 +17,7 @@ package client
 import (
 	"context"
 
-	pb "github.com/casbin/casbin-server/proto"
+	pb "github.com/windmeup/casbin-server/proto"
 )
 
 // GetRolesForUser gets the roles that a user has.
@@ -40,7 +40,7 @@ func (e *Enforcer) GetRolesForUser(ctx context.Context, name string) ([]string, 
 //
 // GetRolesForUser("alice") can only get: ["role:admin"].
 // But GetImplicitRolesForUser("alice") will get: ["role:admin", "role:user"].
-func (e *Enforcer) GetImplicitRolesForUser(ctx context.Context, name string, domain ...string) ([]string, error) {
+func (e *Enforcer) GetImplicitRolesForUser(ctx context.Context, name string, _ ...string) ([]string, error) {
 	res, err := e.client.remoteClient.GetImplicitRolesForUser(ctx, &pb.UserRoleRequest{
 		EnforcerHandler: e.handler,
 		User:            name,
@@ -160,7 +160,7 @@ func (e *Enforcer) GetPermissionsForUser(ctx context.Context, user string) ([][]
 //
 // GetPermissionsForUser("alice") can only get: [["alice", "data2", "read"]].
 // But GetImplicitPermissionsForUser("alice") will get: [["admin", "data1", "read"], ["alice", "data2", "read"]].
-func (e *Enforcer) GetImplicitPermissionsForUser(ctx context.Context, user string, domain ...string) ([][]string, error) {
+func (e *Enforcer) GetImplicitPermissionsForUser(ctx context.Context, user string, _ ...string) ([][]string, error) {
 	res, err := e.client.remoteClient.GetImplicitPermissionsForUser(ctx, &pb.PermissionRequest{
 		EnforcerHandler: e.handler,
 		User:            user,
